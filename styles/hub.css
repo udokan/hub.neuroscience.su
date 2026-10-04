@@ -148,12 +148,13 @@
  * Скрываем только собственную иконку выноски
  * в навигационных карточках главной.
  *
- * Иконки ссылок на страницы сохраняются.
+ * Символ > ограничивает правило непосредственным дочерним элементом.
+ * Иконки внутри ссылок на страницы сохраняются.
  * Информационная выноска вне колонок не затрагивается.
  */
 
-.index-page .notion-column .notion-callout > .notion-callout-icon {
-  display: none;
+.index-page .notion-column .notion-callout > .notion-page-icon-inline {
+  display: none !important;
 }
 
 .index-page .notion-column .notion-callout > .notion-callout-text {
