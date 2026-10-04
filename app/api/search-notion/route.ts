@@ -1,5 +1,6 @@
 import type * as types from '@/lib/types'
 import { search } from '@/lib/notion'
+import { rootNotionPageId } from '@/lib/config'
 
 const maxBodySize = 1_000_000
 
@@ -36,16 +37,26 @@ export async function POST(request: Request) {
     )
   }
 
-  console.log('<<< lambda search-notion', searchParams)
-  const results = await search(searchParams)
-  console.log('>>> lambda search-notion', results)
-
-  return Response.json(results, {
-    headers: {
-      'Cache-Control':
-        'public, s-maxage=60, max-age=60, stale-while-revalidate=60'
-    }
-  })
+  try {
+    const results = await search({
+      ...searchParams,
+      ancestorId: rootNotionPageId,
+      filters: {
+        isDeletedOnly: false,
+        excludeTemplates: true,
+        isNavigableOnly: true,
+        requireEditPermissions: false
+      }
+    })
+    return Response.json(results, {
+      headers: { 'Cache-Control': 'no-store' }
+    })
+  } catch {
+    return Response.json(
+      { error: 'Поиск временно недоступен. Попробуйте позже.' },
+      { status: 502, headers: { 'Cache-Control': 'no-store' } }
+    )
+  }
 }
 
 async function readBody(request: Request): Promise<string> {

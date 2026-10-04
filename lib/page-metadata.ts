@@ -83,8 +83,8 @@ export function createPageMetadata(pageProps: PageProps): Metadata {
     title,
     description,
     robots: {
-      index: true,
-      follow: true
+      index: !config.isDev && process.env.VERCEL_ENV !== 'preview',
+      follow: !config.isDev && process.env.VERCEL_ENV !== 'preview'
     },
     alternates: {
       canonical: canonicalPageUrl,

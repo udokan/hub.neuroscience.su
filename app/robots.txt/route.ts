@@ -20,7 +20,7 @@ Sitemap: ${host}/sitemap.xml
 
   return new Response(body, {
     headers: {
-      'Cache-Control': 'public, max-age=86400, immutable',
+      'Cache-Control': 'public, max-age=300',
       'Content-Type': 'text/plain'
     }
   })

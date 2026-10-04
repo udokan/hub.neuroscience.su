@@ -5,6 +5,7 @@ import {
   uuidToId
 } from 'notion-utils'
 import pMemoize from 'p-memoize'
+import ExpiryMap from 'expiry-map'
 
 import type * as types from './types'
 import * as config from './config'
@@ -27,7 +28,8 @@ export async function getSiteMap(): Promise<types.SiteMap> {
 }
 
 const getAllPages = pMemoize(getAllPagesImpl, {
-  cacheKey: (...args) => JSON.stringify(args)
+  cacheKey: (...args) => JSON.stringify(args),
+  cache: new ExpiryMap(300_000)
 })
 
 const getPage = async (pageId: string, opts?: any) => {

@@ -5,7 +5,13 @@ import type * as types from './types'
 import { api } from './config'
 
 export const searchNotion = pMemoize(searchNotionImpl, {
-  cacheKey: (args) => args[0]?.query,
+  cacheKey: (args) => JSON.stringify({
+    ancestorId: args[0]?.ancestorId,
+    query: args[0]?.query,
+    filters: args[0]?.filters,
+    limit: args[0]?.limit,
+    searchSessionId: args[0]?.searchSessionId
+  }),
   cache: new ExpiryMap(10_000)
 })
 
@@ -31,9 +37,4 @@ async function searchNotionImpl(
     })
     .then((res) => res.json() as Promise<types.SearchResults>)
 
-  // return ky
-  //   .post(api.searchNotion, {
-  //     json: params
-  //   })
-  //   .json()
 }
