@@ -10,6 +10,7 @@ import '@/styles/global.css'
 import '@/styles/notion.css'
 // global style overrides for prism theme (optional)
 import '@/styles/prism-theme.css'
+import '@/styles/hub.css'
 
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
@@ -50,6 +51,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: config.name,
+    locale: 'ru_RU',
     title: config.name,
     description: config.description
   },
@@ -82,7 +84,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang={config.language} suppressHydrationWarning>
       <body>
         <Providers>{children}</Providers>
       </body>

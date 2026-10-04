@@ -1,6 +1,6 @@
 {
-  "name": "Next.js Notion Starter Kit",
-  "short_name": "Starter Kit",
+  "name": "Префронтальные беседы",
+  "short_name": "Нейрохаб",
   "icons": [
     {
       "src": "/favicon.png",
@@ -18,7 +18,9 @@
       "sizes": "192x192"
     }
   ],
-  "theme_color": "#000000",
-  "background_color": "#000000",
-  "display": "standalone"
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "lang": "ru",
+  "start_url": "/"
 }

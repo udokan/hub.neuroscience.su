@@ -24,7 +24,6 @@ import { searchNotion } from '@/lib/search-notion'
 import { useDarkMode } from '@/lib/use-dark-mode'
 
 import { Footer } from './Footer'
-import { GitHubShareButton } from './GitHubShareButton'
 import { NotionPageHeader } from './NotionPageHeader'
 import { PageAside } from './PageAside'
 
@@ -139,8 +138,8 @@ const propertyLastEditedTimeValue = (
   defaultFn: () => React.ReactNode
 ) => {
   if (pageHeader && block?.last_edited_time) {
-    return `Last updated ${formatDate(block?.last_edited_time, {
-      month: 'long'
+    return `Обновлено ${new Date(block.last_edited_time).toLocaleDateString('ru-RU', {
+      day: 'numeric', month: 'long', year: 'numeric'
     })}`
   }
 
@@ -231,6 +230,14 @@ export function NotionPage({
   const title = getBlockTitle(block, recordMap) || site.name
 
   React.useEffect(() => {
+    const content = document.querySelector<HTMLElement>('.notion-page')
+    if (content) {
+      content.id = 'hub-content'
+      content.tabIndex = -1
+    }
+
+    if (!config.isDev) return
+
     console.log('notion page', {
       isDev: config.isDev,
       title,
@@ -248,6 +255,7 @@ export function NotionPage({
 
   return (
     <>
+      {!isLiteMode && <a className='hub-skip-link' href='#hub-content'>Перейти к содержимому</a>}
       {isLiteMode && <BodyClassName className='notion-lite' />}
 
       <NotionRenderer
@@ -272,7 +280,7 @@ export function NotionPage({
         footer={<Footer />}
       />
 
-      <GitHubShareButton />
+
     </>
   )
 }

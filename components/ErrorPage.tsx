@@ -10,17 +10,17 @@ export function ErrorPage({
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <h1>Error Loading Page</h1>
+        <h1>Не удалось загрузить страницу</h1>
 
-        {statusCode && <p>Error code: {statusCode}</p>}
+        {statusCode && <p>Код ошибки: {statusCode}</p>}
 
         {onRetry && (
           <button type='button' onClick={onRetry}>
-            Try again
+            Повторить попытку
           </button>
         )}
 
-        <img src='/error.png' alt='Error' className={styles.errorImage} />
+        <img src='/error.png' alt='Ошибка загрузки' className={styles.errorImage} />
       </main>
     </div>
   )

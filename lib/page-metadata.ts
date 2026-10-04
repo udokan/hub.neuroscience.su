@@ -29,10 +29,17 @@ export function getPageMetadataInfo({
     (block && recordMap && getBlockTitle(block, recordMap)) ||
     site?.name ||
     config.name
+  const sectionDescriptions: Record<string, string> = {
+    '3efad4ba0c2d804ebe66ffd0ecc8a50c': 'Поддержка развития и общения ребенка дома. Подготовка к консультации и понятные ориентиры для семьи.',
+    '3efad4ba0c2d80a9af82e1ea7372d7c3': 'От запроса семьи к плану помощи: рабочие ориентиры и каркас записи по случаю для специалистов по реабилитации.',
+    '3efad4ba0c2d80549e7ec2a5041eb253': 'Организация реабилитационной работы: проверка процессов и документов, чек-лист и паспорт материала.'
+  }
+  const sectionDescription = pageId ? sectionDescriptions[pageId.replaceAll('-', '')] : undefined
   const description =
     (block &&
       recordMap &&
       getPageProperty<string>('Description', block, recordMap)) ||
+    sectionDescription ||
     site?.description ||
     config.description
   const isBlogPost =
@@ -63,7 +70,8 @@ export function getPageMetadataInfo({
 export function createPageMetadata(pageProps: PageProps): Metadata {
   if (pageProps.error) {
     return {
-      title: 'Notion Page Not Found'
+      title: 'Страница не найдена',
+      robots: { index: false, follow: false }
     }
   }
 
@@ -92,6 +100,7 @@ export function createPageMetadata(pageProps: PageProps): Metadata {
     openGraph: {
       type: 'website',
       siteName: site?.name || config.name,
+      locale: 'ru_RU',
       title,
       description,
       url: canonicalPageUrl,
