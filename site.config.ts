@@ -11,7 +11,6 @@ export default siteConfig({
   description: 'Клинический опыт, чек-листы и методические материалы по нейропсихологии, МКФ и АДК.',
   
   // 2. БАЗОВЫЙ ВИЗУАЛ
-  // Отключение дефолтных иконок и обложек для строгого минималистичного стиля
   defaultPageIcon: null,
   defaultPageCover: null,
   defaultPageCoverPosition: 0.5,
@@ -29,24 +28,16 @@ export default siteConfig({
   navigationStyle: 'custom',
   navigationLinks: [
     {
-      title: 'Чек-листы',
-      pageId: '3efad4ba-0c2d-80a9-af82-e1ea7372d7c3'
-    },
-    {
-      title: 'Подборки',
-      pageId: '3efad4ba-0c2d-8054-9e7e-c2a5041eb253'
-    },
-    {
-      title: 'Обо мне',
-      url: 'https://www.neuroscience.su/me/'
-    },
-    {
       title: 'Основной сайт',
       url: 'https://www.neuroscience.su'
     },
     {
       title: 'Блог',
       url: 'https://blog.neuroscience.su'
+    },
+    {
+      title: 'Обо мне',
+      url: 'https://www.neuroscience.su/me/'
     }
   ]
 })
