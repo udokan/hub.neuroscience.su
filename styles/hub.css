@@ -148,7 +148,6 @@
  * Скрываем только собственную иконку выноски
  * в навигационных карточках главной.
  *
- * Символ > ограничивает правило непосредственным дочерним элементом.
  * Иконки внутри ссылок на страницы сохраняются.
  * Информационная выноска вне колонок не затрагивается.
  */
@@ -413,6 +412,8 @@ button:focus-visible {
 /* Телефоны */
 
 @media (max-width: 700px) {
+  /* Карточки располагаются друг под другом. */
+
   .index-page .notion-column-list {
     display: flex !important;
     flex-direction: column;
@@ -433,20 +434,48 @@ button:focus-visible {
     height: auto;
   }
 
+  /*
+   * Скрываем внешние ссылки в мобильной шапке.
+   * На компьютере меню остается видимым.
+   */
+
+  .notion-header.hub-header .hub-nav {
+    display: none !important;
+  }
+
+  /* Убираем второй ряд и лишнюю высоту шапки. */
+
   .notion-header.hub-header {
+    height: auto !important;
+    min-height: 64px;
     padding: 8px 16px !important;
   }
 
-  .hub-brand {
-    font-size: 15px;
+  .hub-header .hub-header-inner {
+    height: auto !important;
+    min-height: 44px;
+    flex-wrap: nowrap !important;
+    align-items: center;
+    gap: 12px;
   }
 
-  .hub-nav {
-    gap: 4px;
+  .hub-header .hub-brand {
+    flex: 1;
+    min-width: 0;
+    margin-right: 0;
+    font-size: 14px;
+    line-height: 1.3;
+    white-space: normal;
+    overflow-wrap: break-word;
   }
 
-  .hub-nav-link {
-    padding: 8px;
+  .hub-header .hub-header-tools {
+    flex-shrink: 0;
+    gap: 8px;
+  }
+
+  .notion {
+    --notion-header-height: 64px;
   }
 
   .notion-page,
