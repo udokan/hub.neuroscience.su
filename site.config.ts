@@ -1,7 +1,7 @@
 import { siteConfig } from './lib/site-config'
 
 export default siteConfig({
-  // 1. КОРНЕВАЯ СТРАНИЦА ХАБА
+  // 1. ОСНОВНЫЕ НАСТРОЙКИ ХАБА
   rootNotionPageId: '3efad4ba-0c2d-8044-bc4c-d99beb6339de',
   rootNotionSpaceId: null,
   
@@ -21,14 +21,12 @@ export default siteConfig({
   // 3. ЧИСТЫЕ ССЫЛКИ ДЛЯ SEO (URL Overrides)
   pageUrlOverrides: {
     '/checklists': '3efad4ba-0c2d-80a9-af82-e1ea7372d7c3',
-    '/materials': '3efad4ba-0c2d-804e-be66-ffd0ecc8a50c',
     '/collections': '3efad4ba-0c2d-8054-9e7e-c2a5041eb253'
   },
   
   // 4. МЕНЮ НАВИГАЦИИ В ШАПКЕ
   navigationStyle: 'custom',
   navigationLinks: [
-    // Внутренние страницы хаба (Notion)
     {
       title: 'Чек-листы',
       pageId: '3efad4ba-0c2d-80a9-af82-e1ea7372d7c3'
@@ -37,11 +35,6 @@ export default siteConfig({
       title: 'Подборки',
       pageId: '3efad4ba-0c2d-8054-9e7e-c2a5041eb253'
     },
-    {
-      title: 'Материалы',
-      pageId: '3efad4ba-0c2d-804e-be66-ffd0ecc8a50c'
-    },
-    // Внешние ссылки на ваши основные ресурсы
     {
       title: 'Обо мне',
       url: 'https://www.neuroscience.su/me/'
