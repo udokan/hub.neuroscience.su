@@ -16,5 +16,22 @@ export default siteConfig({
   isPreviewImageSupportEnabled: true,
   isRedisEnabled: false,
   pageUrlOverrides: null,
-  navigationStyle: 'default'
+  
+  // Включаем кастомное меню навигации
+  navigationStyle: 'custom',
+  navigationLinks: [
+    {
+      title: 'Основной сайт',
+      url: 'https://www.neuroscience.su'
+    },
+    {
+      title: 'Блог',
+      url: 'https://blog.neuroscience.su'
+    }
+    // Если захотите добавить ссылку на страницу внутри самого Notion, используйте формат:
+    // {
+    //   title: 'О проекте',
+    //   pageId: 'ID-СТРАНИЦЫ-ИЗ-NOTION'
+    // }
+  ]
 })
