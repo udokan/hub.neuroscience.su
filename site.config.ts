@@ -11,8 +11,9 @@ export default siteConfig({
   description: 'Клинический опыт, чек-листы и методические материалы по нейропсихологии, МКФ и АДК.',
   
   // 2. БАЗОВЫЙ ВИЗУАЛ
-  defaultPageIcon: '🧠',
-  defaultPageCover: 'https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2000&auto=format&fit=crop', 
+  // Отключение дефолтных иконок и обложек для строгого минималистичного стиля
+  defaultPageIcon: null,
+  defaultPageCover: null,
   defaultPageCoverPosition: 0.5,
   
   isPreviewImageSupportEnabled: true,
@@ -46,10 +47,6 @@ export default siteConfig({
     {
       title: 'Блог',
       url: 'https://blog.neuroscience.su'
-    },
-    {
-      title: 'Telegram',
-      url: 'https://t.me/neurica'
     }
   ]
 })
