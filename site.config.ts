@@ -3,10 +3,15 @@ import { siteConfig } from './lib/site-config'
 export default siteConfig({
   rootNotionPageId: '3efad4ba-0c2d-8044-bc4c-d99beb6339de',
   rootNotionSpaceId: null,
-  name: 'Нейроhub',
+  
+  // НАЗВАНИЕ САЙТА (Левый верхний угол)
+  name: 'Префронтальные беседы',
   domain: 'hub.neuroscience.su',
   author: 'Дмитрий Сухин',
-  description: 'Нейронаука, психология, психотерапевтические техники, реабилитация и абилитация',
+  
+  // ОПИСАНИЕ (Для поисковиков и ссылок в мессенджерах)
+  description: 'Полезные материалы, чек-листы и подборки по нейропсихологии и АДК',
+  
   twitter: '',
   github: '',
   linkedin: '',
@@ -17,9 +22,13 @@ export default siteConfig({
   isRedisEnabled: false,
   pageUrlOverrides: null,
   
-  // Включаем кастомное меню навигации
+  // МЕНЮ НАВИГАЦИИ (Правый верхний угол)
   navigationStyle: 'custom',
   navigationLinks: [
+    {
+      title: 'Полезные материалы',
+      pageId: '3efad4ba-0c2d-8044-bc4c-d99beb6339de' // Пока ссылка ведет на саму главную страницу, позже ее можно будет заменить на ID конкретного раздела
+    },
     {
       title: 'Основной сайт',
       url: 'https://www.neuroscience.su'
@@ -28,10 +37,5 @@ export default siteConfig({
       title: 'Блог',
       url: 'https://blog.neuroscience.su'
     }
-    // Если захотите добавить ссылку на страницу внутри самого Notion, используйте формат:
-    // {
-    //   title: 'О проекте',
-    //   pageId: 'ID-СТРАНИЦЫ-ИЗ-NOTION'
-    // }
   ]
 })
