@@ -2,15 +2,14 @@
    1. БАЗОВЫЕ НАСТРОЙКИ И ПЕРЕМЕННЫЕ
    ========================================================================== */
 :root {
-  /* Выносим переменные в корень для глобальной доступности */
-  --notion-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', sans-serif;
+  --notion-font: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', sans-serif;
+  --transition-speed: 0.2s; /* Централизованное управление скоростью анимаций */
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  /* Убираем стандартную синюю подсветку при тапе на iOS */
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -21,38 +20,57 @@ body {
   scroll-behavior: smooth;
 }
 
+/* 
+  Уважение к настройкам пользователя (Accessibility). 
+  Отключает плавный скролл и анимации для людей с вестибулярной чувствительностью 
+*/
+@media (prefers-reduced-motion: reduce) {
+  html, body {
+    scroll-behavior: auto !important;
+  }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
 /* ==========================================================================
    2. ТИПОГРАФИКА И ССЫЛКИ
    ========================================================================== */
 body {
   font-family: var(--notion-font);
   overflow-x: hidden;
-  
-  /* Сглаживание шрифтов */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Предотвращает дергание контента при появлении скроллбара */
+  scrollbar-gutter: stable; 
 }
 
-a {
+/* Ограничиваем область, чтобы не ломать иконки и системные кнопки Notion */
+.notion-page-content a {
   color: inherit;
   text-decoration: none;
-  transition: opacity 0.2s ease, color 0.2s ease;
+  transition: opacity var(--transition-speed) ease, color var(--transition-speed) ease;
 }
 
-a:hover {
+.notion-page-content a:hover {
   opacity: 0.75;
 }
 
-/* Применяем scale-отклик ТОЛЬКО к кнопкам и карточкам, чтобы текст не "прыгал" */
+/* Оптимизация аппаратного ускорения для плавности нажатия */
 .notion-nav-header-rhs a:active,
 .notion-collection-card:active {
   transform: scale(0.98);
   transition: transform 0.1s ease;
+  will-change: transform; 
 }
 
-/* Видимый фокус для доступности (навигация с клавиатуры) */
-a:focus-visible {
-  outline: 2px solid var(--fg-color-1, #333);
+/* Видимый фокус для навигации с клавиатуры */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--fg-color, #37352f);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -66,13 +84,13 @@ a:focus-visible {
 .searchInput {
   color: var(--fg-color);
   caret-color: var(--fg-color);
-  transition: box-shadow 0.2s ease, border-radius 0.2s ease;
+  transition: box-shadow var(--transition-speed) ease, border-radius var(--transition-speed) ease;
 }
 
-/* Более мягкое, "эппловское" свечение при фокусе */
+/* Динамическое свечение с помощью color-mix: автоматически подстраивается под темную/светлую тему */
 .searchInput:focus {
   outline: none;
-  box-shadow: 0 0 0 3px var(--bg-color-2, rgba(120, 119, 116, 0.2));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--fg-color, #37352f) 15%, transparent);
   border-radius: 6px;
 }
 
@@ -81,7 +99,7 @@ a:focus-visible {
    ========================================================================== */
 html {
   scrollbar-width: thin;
-  scrollbar-color: var(--fg-color-1) transparent;
+  scrollbar-color: var(--bg-color-2, #e9e9e7) transparent;
 }
 
 ::-webkit-scrollbar {
@@ -95,13 +113,13 @@ html {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: var(--fg-color-1);
-  border: 2px solid var(--bg-color);
-  background-clip: padding-box;
+  background-color: var(--bg-color-2, #e9e9e7);
+  border: 2px solid var(--bg-color, #fff); /* Граница цвета фона для эффекта отступа */
+  background-clip: content-box; 
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--fg-color-0);
+  background-color: var(--fg-color-1, #787774);
 }
 
 /* ==========================================================================
@@ -111,10 +129,13 @@ html {
   .notion-header {
     height: auto !important;
     padding: 12px 16px !important;
-    /* Эффект матового стекла, если шапка закреплена при скролле */
+    
+    /* Чтобы эффект blur работал, фон должен быть полупрозрачным */
+    background-color: color-mix(in srgb, var(--bg-color, #ffffff) 85%, transparent) !important;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--bg-color-1);
+    border-bottom: 1px solid var(--bg-color-1, #f7f6f3);
+    z-index: 100;
   }
   
   .notion-nav-header {
@@ -123,16 +144,18 @@ html {
     gap: 12px;
   }
 
-  /* Вместо многоэтажной кучи кнопок делаем свайп-ленту */
   .notion-nav-header-rhs {
     flex-wrap: nowrap !important;
-    overflow-x: auto; /* Разрешаем горизонтальный скролл */
+    overflow-x: auto;
     justify-content: flex-start !important;
     gap: 8px !important;
     width: 100%;
     padding-bottom: 4px;
     
-    /* Скрываем сам ползунок скролла для эстетики */
+    /* Плавный скролл на мобильных и защита от случайного свайпа "назад" в iOS */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain; 
+    
     scrollbar-width: none; 
     -ms-overflow-style: none;
   }
@@ -145,13 +168,21 @@ html {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    white-space: nowrap; /* Текст кнопок не переносится */
+    white-space: nowrap;
     
-    padding: 8px 14px !important;
+    /* Слегка увеличены отступы для попадания в стандарт тач-зон Apple (ближе к 44px) */
+    padding: 10px 16px !important; 
     font-size: 14px !important;
     font-weight: 500;
     
-    background: var(--bg-color-1); 
+    background: var(--bg-color-1, #f7f6f3); 
     border-radius: 8px;
+  }
+
+  /* Исправление "залипания" hover-эффекта на тач-устройствах после клика */
+  @media (hover: none) {
+    .notion-page-content a:hover {
+      opacity: 1;
+    }
   }
 }
