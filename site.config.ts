@@ -1,7 +1,7 @@
 import { siteConfig } from './lib/site-config'
 
 export default siteConfig({
-  rootNotionPageId: '3efad4ba-0c2d-8044-bc4c-d99beb6339de',
+  rootNotionPageId: '3efad4ba0c2d8044bc4cd99beb6339de',
   rootNotionSpaceId: null,
   name: 'Префронтальные беседы',
   domain: 'hub.neuroscience.su',
@@ -16,9 +16,9 @@ export default siteConfig({
   isRedisEnabled: false,
   isSearchEnabled: true,
   pageUrlOverrides: {
-    '/parents': '3efad4ba-0c2d-804e-be66-ffd0ecc8a50c',
-    '/specialists': '3efad4ba-0c2d-80a9-af82-e1ea7372d7c3',
-    '/methodology': '3efad4ba-0c2d-8054-9e7e-c2a5041eb253'
+    '/parents': '3efad4ba0c2d804ebe66ffd0ecc8a50c',
+    '/specialists': '3efad4ba0c2d80a9af82e1ea7372d7c3',
+    '/methodology': '3efad4ba0c2d80549e7ec2a5041eb253'
   },
   navigationStyle: 'custom',
   navigationLinks: [
